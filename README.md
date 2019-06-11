@@ -1,20 +1,12 @@
 # README
 
 ## テーブル
-### User
-* id
-* name
-* password
-* password_digest
-
-### Task
-* id
-* user_id
-* label_id
-* deadline
-* status
-* priority
-
-### Label
-* id
+|User|Task|Label|TaskLabel|
+|---|---|---|---|
+|id|id|id|id|
+|name|user_id|name||
+|email|label_id|task_id||
+|password|deadline|label_id||
+|password_digest|status|||
+||priority|||
 
