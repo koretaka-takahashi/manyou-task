@@ -1,0 +1,15 @@
+<%= notice %>
+
+<h1>一覧</h1>
+
+<table>
+  <% @tasks.each do |t| %>
+    <tr>
+      <th><%= link_to "#{t.name}", task_path(t.id) %></th>
+      <td><%= link_to "編集", edit_task_path(t.id) %></td>
+      <td><%= link_to "削除", task_path(t.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "タスクを登録", new_task_path %></p>
