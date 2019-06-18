@@ -1,13 +1,13 @@
 <h1>登録</h1>
 
 <%= form_with(model: @task, local: true)do |t| %>
-  <p><%= t.label :タスク %></p>
+  <p><%= t.label :name, "タスク" %></p>
   <p><%= t.text_field :name %></p>
 
-  <p><%= t.label :内容 %></p>
+  <p><%= t.label :content, "内容" %></p>
   <p><%= t.text_field :content %></p>
 
-  <%= t.submit %>
+  <%= t.submit "登録する" %>
 <% end %>
 
 <p><%= link_to "戻る", root_path %></p>
