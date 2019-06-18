@@ -5,7 +5,8 @@
 <table>
   <% @tasks.each do |t| %>
     <tr>
-      <th><%= link_to "#{t.name}", task_path(t.id) %></th>
+      <th><%= link_to "<#{t.name}>", task_path(t.id) %></th>
+      <td><%= t.content %></td>
       <td><%= link_to "編集", edit_task_path(t.id) %></td>
       <td><%= link_to "削除", task_path(t.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
     </tr>
