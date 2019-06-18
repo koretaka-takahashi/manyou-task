@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.save
-    redirect_to root_path, notice: 'タスクを作成しました'
+    redirect_to root_path, notice: t('view.flash.success')
   end
 
   def show
@@ -23,12 +23,12 @@ class TasksController < ApplicationController
 
   def update
     @task.update(task_params)
-    redirect_to task_path, notice: 'タスクを更新しました'
+    redirect_to task_path, notice: t('view.flash.update')
   end
 
   def destroy
     @task.destroy
-    redirect_to root_path, notice: 'タスクを削除しました'
+    redirect_to root_path, notice: t('view.flash.delete')
   end
 
   private
