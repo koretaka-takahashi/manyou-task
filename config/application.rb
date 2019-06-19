@@ -24,5 +24,7 @@ module ManyouTask
         request_specs: false
       g.fixture_replacement :factory_bot, dir: "spec/factories"
     end
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
   end
 end
