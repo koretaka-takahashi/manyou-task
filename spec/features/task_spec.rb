@@ -1,10 +1,15 @@
 require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
-  scenario "タスク一覧のテスト" do
-    Task.create!(name: 'test1', content: 'test1をやる')
-    Task.create!(name: 'test2', content: 'test2をやる')
 
+  background do
+    # Task.create!(name: 'test1', content: 'test1をやる')
+    # Task.create!(name: 'test2', content: 'test2をやる')
+    FactoryBot.create(:task)
+    FactoryBot.create(:task2)
+  end
+
+  scenario "タスク一覧のテスト" do
     # tasks_pathにvisitする（タスク一覧ページに遷移する）
     visit tasks_path
 
@@ -33,5 +38,9 @@ RSpec.feature "タスク管理機能", type: :feature do
     test_task = Task.create!(name: 'test1', content: 'test1をやる')
     visit task_path(test_task.id)
     expect(page).to have_content "test1をやる"
+  end
+
+  scenario "タスク一覧の作成日時による並び替えテスト" do
+    
   end
 end
