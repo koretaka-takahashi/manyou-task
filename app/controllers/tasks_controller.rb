@@ -11,8 +11,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.save
-    redirect_to root_path, notice: t('view.flash.success')
+    if @task.save
+      redirect_to root_path, notice: t('view.flash.success')
+    else
+      render :new
+    end
   end
 
   def show

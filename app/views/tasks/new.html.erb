@@ -1,6 +1,14 @@
 <h1><%= t('view.new') %></h1>
 
 <%= form_with(model: @task, local: true)do |t| %>
+　 <% if @task.errors.any? %>
+    <ul>
+     <% @task.errors.full_messages.each do |message| %>
+       <li class="error_messages"><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <p><%= t.label :name, t('view.task') %></p>
   <p><%= t.text_field :name %></p>
 
