@@ -29,7 +29,11 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     scenario "タスク一覧が作成日時による並び替えられる" do
       visit tasks_path
-      expect(Task.order(created_at: "DESC").map(&:id)).to eq [2, 1]
+      up_task = all('table tr')[0]
+      under_task = all('table tr')[1]
+      expect(up_task).to have_content 'test2をやる'
+      expect(under_task).to have_content 'test1をやる'
+      # expect(Task.order(created_at: "DESC").map(&:id)).to eq [2, 1]
     end
   end
 end
