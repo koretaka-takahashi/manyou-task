@@ -45,6 +45,9 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem "factory_bot_rails"
   gem "database_cleaner"
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do
