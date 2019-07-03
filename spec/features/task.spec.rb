@@ -27,7 +27,7 @@ RSpec.feature "タスク管理機能", type: :feature do
       expect(page).to have_content 'test2をやる'
     end
 
-    scenario "タスク一覧が作成日時による並び替えられる" do
+    scenario "タスク一覧が作成日時により並び替えられる" do
       visit tasks_path
       up_task = all('table tr')[0]
       under_task = all('table tr')[1]
