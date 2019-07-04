@@ -1,4 +1,10 @@
 # README
+
+##バージョン情報
+*ruby 2.6.3p62
+*Rails 5.2.3
+*PostgreSQL 11.3
+
 ## テーブル
 |User|Task|Label|TaskLabel|
 |---|---|---|---|
