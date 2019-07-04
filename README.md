@@ -10,3 +10,25 @@
 ||status|||
 ||priority|||
 
+Herokuへのデプロイ手順
+
+アセットプリコンパイル実施
+$ rails assets:precompile RAILS_ENV=production
+
+add、コミット
+$ git add 
+$ git commit -m "(コミットメッセージ)"
+
+Heroku上に新しいアプリケーションを作成
+$ heroku create
+
+Herokuにデプロイ
+$ git push heroku master
+
+データベースの移行
+$ heroku run rails db:migrate
+
+アプリ名を確認する方法
+$ heroku config
+ブラウザで以下のURLにアクセス
+https://アプリ名.herokuapp.com/
