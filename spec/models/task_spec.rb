@@ -25,7 +25,7 @@ RSpec.describe Task, type: :model do
 
   it "deadlineにデフォルト値が入ること" do
     task = Task.new(name: 'a')
-    expect(task.deadline).to eq '2019-7-10'
+    expect(task.deadline).to eq Date.today
   end
 
   it "nameが31文字以上でエラーになること" do
