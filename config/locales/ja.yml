@@ -13,6 +13,7 @@ ja:
     back: 戻る
     sort_by_deadline: 終了期限でソート
     confirm: 本当に削除しますか？
+    restore: 元に戻す
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。

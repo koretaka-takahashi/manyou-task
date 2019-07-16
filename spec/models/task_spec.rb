@@ -24,7 +24,8 @@ RSpec.describe Task, type: :model do
   end
 
   it "deadlineにデフォルト値が入ること" do
-    task = Task.new(name: 'a')
+    Task.create(name: 'a')
+    task = Task.find(1)
     expect(task.deadline).to eq Date.today
   end
 
