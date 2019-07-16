@@ -26,8 +26,8 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   feature "タスク一覧画面のテスト" do
     background do
-      FactoryBot.create(:task, id: 1, updated_at: Time.current + 1.days)
-      FactoryBot.create(:task2, id: 2, updated_at: Time.current + 2.days)
+      FactoryBot.create(:task, id: 1, updated_at: Time.current + 1.days, deadline: Time.current + 2.days)
+      FactoryBot.create(:task2, id: 2, updated_at: Time.current + 2.days, deadline: Time.current + 1.days)
     end
 
     scenario "タスク一覧が表示される" do
@@ -47,7 +47,11 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     scenario "タスクを終了期限でソートできる" do
       visit tasks_path
-      click_on ''
+      click_on '終了期限でソート'
+      up_task = all('table tr')[0]
+      under_task = all('table tr')[1]
+      expect(up_task).to have_content 'test2をやる'
+      expect(under_task).to have_content 'test1をやる'
     end
   end
 end
