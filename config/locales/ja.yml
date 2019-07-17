@@ -3,6 +3,7 @@ ja:
   view:
     task: タスク
     content: 内容
+    deadline: 終了期限
     index: 一覧
     new: 登録
     show: 詳細
@@ -10,7 +11,9 @@ ja:
     delete: 削除
     create: 登録する
     back: 戻る
+    sort_by_deadline: 終了期限でソート
     confirm: 本当に削除しますか？
+    restore: 元に戻す
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。

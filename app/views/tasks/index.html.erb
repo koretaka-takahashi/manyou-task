@@ -7,6 +7,7 @@
     <tr>
       <th><%= link_to "<#{t.name}>", task_path(t.id) %></th>
       <td><%= t.content %></td>
+      <td><%= "期限：#{t.deadline}" %></td>
       <td><%= link_to t('view.edit'), edit_task_path(t.id) %></td>
       <td><%= link_to t('view.delete'), task_path(t.id), method: :delete, data: { confirm: t('view.confirm') } %></td>
     </tr>
@@ -14,3 +15,5 @@
 </table>
 
 <p><%= link_to t('view.new'), new_task_path %></p>
+<p><%= link_to t('view.sort_by_deadline'), tasks_path(sort_by_deadline: "true") %></p>
+<p><%= link_to t('view.restore'), tasks_path %></p>

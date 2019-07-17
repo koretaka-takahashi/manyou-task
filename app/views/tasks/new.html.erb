@@ -1,9 +1,9 @@
 <h1><%= t('view.new') %></h1>
 
 <%= form_with(model: @task, local: true)do |t| %>
-　 <% if @task.errors.any? %>
+  <% if @task.errors.any? %>
     <ul>
-     <% @task.errors.full_messages.each do |message| %>
+      <% @task.errors.full_messages.each do |message| %>
        <li class="error_messages"><%= message %></li>
       <% end %>
     </ul>
@@ -14,6 +14,9 @@
 
   <p><%= t.label :content, t('view.content') %></p>
   <p><%= t.text_field :content %></p>
+
+  <p><%= t.label :deadline, t('view.deadline') %></p>
+  <p><%= t.date_field :deadline %></p>  
 
   <%= t.submit t('view.create') %>
 <% end %>

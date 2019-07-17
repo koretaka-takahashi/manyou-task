@@ -23,6 +23,12 @@ RSpec.describe Task, type: :model do
     expect(task.content).to eq '作成中…'
   end
 
+  it "deadlineにデフォルト値が入ること" do
+    Task.create(name: 'a')
+    task = Task.find(1)
+    expect(task.deadline).to eq Date.today
+  end
+
   it "nameが31文字以上でエラーになること" do
     task = FactoryBot.build(:task, name: 'a' * 31)
     expect(task).not_to be_valid
