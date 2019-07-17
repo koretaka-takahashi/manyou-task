@@ -1,5 +1,5 @@
 class AddDeadlineToTasks < ActiveRecord::Migration[5.2]
   def change
-    change_column_default :tasks, :deadline, -> { "CURRENT_TIMESTAMP" }
+    add_column :tasks, :deadline, :date, null: false, default: -> { "CURRENT_TIMESTAMP" }
   end
 end
