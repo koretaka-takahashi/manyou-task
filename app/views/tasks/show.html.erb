@@ -2,8 +2,11 @@
 
 <h3>「 <%= @task.name %> 」</h3>
 <p><%= t('view.show') %>：<%= @task.content %></p>
+<p><%= t('view.deadline') %>：<%= @task.deadline %></p>
+<p><%= t('view.status') %>：<%= @task.status_i18n %></p>
+
 <table>
   <td><%= link_to t('view.edit'), edit_task_path(@task.id) %></td>
-  <td><%= link_to t('view.delete'), task_path(@task.id), method: :delete, data: { confirm: t('view.confirm') } %></td>
-  <td><%= link_to t('view.back'), root_path, class: 'link' %></td>
+  <td><%= link_to t('view.delete'), task_path(@task.id), method: :delete, data: { confirm: t('view.delete_confirm') } %></td>
+  <td><%= link_to t('view.to_index'), root_path, class: 'link' %></td>
 </table>

@@ -13,6 +13,10 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def confirm
+    @task = Task.new(task_params)
+  end  
+
   def create
     @task = Task.new(task_params)
     if @task.save
@@ -45,6 +49,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :content, :deadline)
+    params.require(:task).permit(:name, :content, :deadline, :status)
   end  
 end
