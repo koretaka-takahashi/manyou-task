@@ -7,7 +7,7 @@ ja:
         doing: 着手中
         done: 完了
   view:
-    name: タスク
+    name: タスク名
     content: 内容
     deadline: 終了期限
     status: 状態
@@ -23,6 +23,7 @@ ja:
     delete_confirm: 本当に削除しますか？
     create_confirm: この内容で登録しますか？
     restore: 元に戻す
+    search: 検索
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。

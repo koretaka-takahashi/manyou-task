@@ -4,6 +4,9 @@ class TasksController < ApplicationController
   def index
     if params[:sort_by_deadline]
       @tasks = Task.order(deadline: "ASC")
+    elsif params[:task] && params[:task][:search]
+      @tasks = Task.where("name LIKE ?", "%#{ params[:task][:name]}%").where(status: params[:task][:status])
+      # @tasks = Task.where("name LIKE ? AND status = ?", "%#{ params[:task][:name]}%", params[:task][:status])
     else  
       @tasks = Task.order(created_at: "DESC")
     end  
@@ -51,4 +54,13 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:name, :content, :deadline, :status)
   end  
+
+  # 多分必要なくなる
+  # def query
+  #   if params[:task].present? && params[:task][:name]
+  #     Task.where('name LIKE ?', "%#{params[:task][:name]}%")
+  #   else
+  #     Task.order(created_at: "DESC")
+  #   end
+  # end
 end
