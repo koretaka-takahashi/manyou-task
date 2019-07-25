@@ -6,7 +6,7 @@ class TasksController < ApplicationController
       @tasks = Task.order(deadline: "ASC")
     elsif params[:task] && params[:task][:search]
       if params[:task][:status] == ''
-        params[:task][:status] = nil
+        # params[:task][:status] = nil
         @tasks = Task.where("name LIKE ?", "%#{ params[:task][:name]}%")
         return
       end  
