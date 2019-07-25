@@ -12,7 +12,7 @@
   <p><%= f.text_field :name %></p>
 
   <p><%= f.label :status, t('view.status') %></p>
-  <p><%= f.select :status, Task.statuses.keys, include_blank: true, selected: '' %></p>
+  <p><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} , include_blank: true, selected: '' %></p>
 
   <p><%= f.hidden_field :search, value: 'true' %></p>
 
