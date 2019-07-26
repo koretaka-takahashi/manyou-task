@@ -6,6 +6,6 @@ class Task < ApplicationRecord
 
   scope :sort_by_deadline, -> {order(deadline: "ASC")}
   scope :normal_sort, -> {order(created_at: "DESC")}
-  scope :search_without_status, -> params {where("name LIKE ?", "%#{ params[:task][:name]}%")}
-  scope :name_and_status_search, -> params {where("name LIKE ?", "%#{ params[:task][:name]}%").where(status: params[:task][:status])}
+  scope :search_by_name, -> params {where("name LIKE ?", "%#{ params[:task][:name]}%")}
+  scope :search_by_status, -> params {where(status: params[:task][:status])}
 end

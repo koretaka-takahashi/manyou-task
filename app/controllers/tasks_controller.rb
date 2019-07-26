@@ -6,10 +6,10 @@ class TasksController < ApplicationController
       @tasks = Task.sort_by_deadline
     elsif params[:task] && params[:task][:search]
       if params[:task][:status] == ''
-        @tasks = Task.search_without_status(params)
+        @tasks = Task.search_by_name(params)
         return
       end  
-      @tasks = Task.name_and_status_search(params)
+      @tasks = Task.search_by_name(params).search_by_status(params)
     else  
       @tasks = Task.normal_sort
     end
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to root_path, notice: t('view.flash.success')
+      redirect_to task_path(@task.id), notice: t('view.flash.success')
     else
       render :new
     end
@@ -39,8 +39,8 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.update(task_params)
-    redirect_to task_path, notice: t('view.flash.update')
+    @task.update(task_params)   # (@task.id)無くてもshowに行けるの何故？？？？？
+    redirect_to task_path(@task.id), notice: t('view.flash.update')
   end
 
   def destroy

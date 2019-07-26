@@ -14,6 +14,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit new_task_path
     fill_in 'タスク', with: 'test1'
     click_on '登録する'
+    click_on '登録する'
     expect(page).to have_content '作成中…'
     expect(page).to have_content Date.today
   end

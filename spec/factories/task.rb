@@ -1,4 +1,3 @@
-# 「FactoryBotを使用します」という記述
 FactoryBot.define do
 
   factory :task do
