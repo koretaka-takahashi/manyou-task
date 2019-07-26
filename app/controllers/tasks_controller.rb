@@ -3,17 +3,15 @@ class TasksController < ApplicationController
 
   def index
     if params[:sort_by_deadline]
-      @tasks = Task.order(deadline: "ASC")
+      @tasks = Task.sort_by_deadline
     elsif params[:task] && params[:task][:search]
       if params[:task][:status] == ''
-        # params[:task][:status] = nil
-        @tasks = Task.where("name LIKE ?", "%#{ params[:task][:name]}%")
+        @tasks = Task.search_without_status(params)
         return
       end  
-      @tasks = Task.where("name LIKE ?", "%#{ params[:task][:name]}%").where(status: params[:task][:status])
-      # @tasks = Task.where("name LIKE ? AND status = ?", "%#{ params[:task][:name]}%", params[:task][:status])
+      @tasks = Task.name_and_status_search(params)
     else  
-      @tasks = Task.order(created_at: "DESC")
+      @tasks = Task.normal_sort
     end
   end
 
