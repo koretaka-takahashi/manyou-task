@@ -11,7 +11,7 @@ class TasksController < ApplicationController
       end  
       @tasks = Task.search_by_name(params).search_by_status(params)
     else  
-      @tasks = Task.normal_sort
+      @tasks = Task.sort_by_created_at
     end
   end
 

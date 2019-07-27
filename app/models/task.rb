@@ -5,7 +5,7 @@ class Task < ApplicationRecord
   enum status: [:waiting, :doing, :done] 
 
   scope :sort_by_deadline, -> {order(deadline: "ASC")}
-  scope :normal_sort, -> {order(created_at: "DESC")}
+  scope :sort_by_created_at, -> {order(created_at: "DESC")}
   scope :search_by_name, -> params {where("name LIKE ?", "%#{ params[:task][:name]}%")}
   scope :search_by_status, -> params {where(status: params[:task][:status])}
 end

@@ -39,7 +39,31 @@ RSpec.describe Task, type: :model do
     expect(task).not_to be_valid
   end
 
-  it "" do
-    
-  end  
+  # it "deadlineでソートされること" do
+  #   task = FactoryBot.build(:task, name: '')
+  # end  
+
+  # it "created_atでソートされること" do
+  #   task = FactoryBot.build(:task, name: '')
+  # end  
+  
+  describe "検索のテスト" do
+    it "nameであいまい検索されること" do
+      task = FactoryBot.create(:task, name: '-a-')
+      task2 = FactoryBot.create(:task2)
+      task3 = FactoryBot.create(:task3)
+      result = Task.search_by_name(task: {name: 'a'})
+      expect(result[0]).to eq task
+      expect(result.size).to be 1
+    end  
+
+    it "statusで検索されること" do
+      task = FactoryBot.create(:task, status: 2)
+      task2 = FactoryBot.create(:task2)
+      task3 = FactoryBot.create(:task3)
+      result = Task.search_by_status(task: {status: 2})
+      expect(result[0]).to eq task
+      expect(result.size).to be 1
+    end  
+  end
 end
