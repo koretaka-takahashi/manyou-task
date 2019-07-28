@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   validates :content, presence: true, length: { maximum: 1000 }
 
   enum status: [:waiting, :doing, :done] 
+  enum priority: [:low, :middle, :high] 
 
   scope :sort_by_deadline, -> {order(deadline: "ASC")}
   scope :sort_by_created_at, -> {order(created_at: "DESC")}
