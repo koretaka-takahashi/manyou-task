@@ -14,6 +14,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit new_task_path
     fill_in 'タスク', with: 'test1'
     click_on '登録する'
+    click_on '登録する'
     expect(page).to have_content '作成中…'
     expect(page).to have_content Date.today
   end
@@ -26,8 +27,8 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   feature "タスク一覧画面のテスト" do
     background do
-      FactoryBot.create(:task, id: 1, updated_at: Time.current + 1.days, deadline: Time.current + 2.days)
-      FactoryBot.create(:task2, id: 2, updated_at: Time.current + 2.days, deadline: Time.current + 1.days)
+      FactoryBot.create(:task, id: 1, updated_at: Time.current + 1.days, deadline: Time.current + 2.days, status: 0)
+      FactoryBot.create(:task2, id: 2, updated_at: Time.current + 2.days, deadline: Time.current + 1.days, status: 1)
     end
 
     scenario "タスク一覧が表示される" do
@@ -52,6 +53,22 @@ RSpec.feature "タスク管理機能", type: :feature do
       under_task = all('table tr')[1]
       expect(up_task).to have_content 'test2をやる'
       expect(under_task).to have_content 'test1をやる'
+    end
+
+    scenario "タスクを名前であいまい検索できる" do
+      visit tasks_path
+      fill_in 'タスク', with: '1'
+      click_on '検索'
+      expect(page).to have_content 'test1'
+      expect(page).not_to have_content 'test2'
+    end
+
+    scenario "タスクを状態で検索できる" do
+      visit tasks_path
+      select '未着手', from: '状態'
+      click_on '検索'
+      expect(page).to have_content 'test'
+      expect(page).not_to have_content 'test2'
     end
   end
 end

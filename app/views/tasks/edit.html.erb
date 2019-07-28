@@ -1,13 +1,5 @@
 <h1><%= t('view.edit') %></h1>
 
-<%= form_with(model: @task, local: true)do |f| %>
-  <p><%= f.label t('view.task') %></p>
-  <p><%= f.text_field :name %></p>
+<%= render 'form' %>
 
-  <p><%= f.label t('view.content') %></p>
-  <p><%= f.text_field :content %></p>
-
-  <%= f.submit %>
-<% end %>
-
-<p><%= link_to t('view.back'), root_path %></p>
+<p><%= link_to t('view.to_index'), root_path %></p>

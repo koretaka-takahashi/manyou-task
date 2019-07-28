@@ -3,20 +3,30 @@ class TasksController < ApplicationController
 
   def index
     if params[:sort_by_deadline]
-      @tasks = Task.order(deadline: "ASC")
+      @tasks = Task.sort_by_deadline
+    elsif params[:task] && params[:task][:search]
+      if params[:task][:status] == ''
+        @tasks = Task.search_by_name(params)
+        return
+      end  
+      @tasks = Task.search_by_name(params).search_by_status(params)
     else  
-      @tasks = Task.order(created_at: "DESC")
-    end  
+      @tasks = Task.sort_by_created_at
+    end
   end
 
   def new
     @task = Task.new
   end
 
+  def confirm
+    @task = Task.new(task_params)
+  end  
+
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to root_path, notice: t('view.flash.success')
+      redirect_to task_path(@task.id), notice: t('view.flash.success')
     else
       render :new
     end
@@ -29,8 +39,8 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task.update(task_params)
-    redirect_to task_path, notice: t('view.flash.update')
+    @task.update(task_params)   # (@task.id)無くてもshowに行けるの何故？？？？？
+    redirect_to task_path(@task.id), notice: t('view.flash.update')
   end
 
   def destroy
@@ -45,6 +55,15 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :content, :deadline)
+    params.require(:task).permit(:name, :content, :deadline, :status)
   end  
+
+  # 多分必要なくなる
+  # def query
+  #   if params[:task].present? && params[:task][:name]
+  #     Task.where('name LIKE ?', "%#{params[:task][:name]}%")
+  #   else
+  #     Task.order(created_at: "DESC")
+  #   end
+  # end
 end

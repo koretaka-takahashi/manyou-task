@@ -1,0 +1,15 @@
+<h2><%= t('view.create_confirm') %></h2>
+
+<%= form_with(model: @task, url: tasks_path, local: true) do |f| %>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :content %>
+  <%= f.hidden_field :deadline %>
+  <%= f.hidden_field :status %>
+
+  <p><%= "#{t('view.name')}：#{@task.name}" %></p>
+  <p><%= "#{t('view.content')}：#{@task.content}" %></p>
+  <p><%= "#{t('view.deadline')}：#{@task.deadline}" %></p>
+  <p><%= "#{t('view.status')}：#{@task.status}" %></p>
+
+  <%= f.submit t('view.create') %>
+<% end %>
