@@ -6,11 +6,16 @@ ja:
         waiting: 未着手
         doing: 着手中
         done: 完了
+      priority:
+        high: 高
+        middle: 中
+        low: 低      
   view:
     name: タスク名
     content: 内容
     deadline: 終了期限
     status: 状態
+    priority: 優先度
     index: 一覧
     new: 登録
     show: 詳細
@@ -20,6 +25,7 @@ ja:
     back: 戻る
     to_index: 一覧へ
     sort_by_deadline: 終了期限でソート
+    sort_by_priority: 優先度でソート
     delete_confirm: 本当に削除しますか？
     create_confirm: この内容で登録しますか？
     restore: 元に戻す

@@ -19,5 +19,8 @@
   <p><%= f.label :status, t('view.status') %></p>
   <p><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %></p>
 
+  <p><%= f.label :priority, t('view.priority') %></p>
+  <p><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %></p>
+
   <%= f.submit t('view.create') %>
 <% end %>

@@ -4,7 +4,8 @@
 
 <p><%= link_to t('view.new'), new_task_path %></p>
 <p><%= link_to t('view.sort_by_deadline'), tasks_path(sort_by_deadline: "true") %></p>
-<p><%= link_to t('view.restore'), tasks_path %></p>
+<p><%= link_to t('view.sort_by_priority'), tasks_path(sort_by_priority: "true") %></p>
+<p><%= link_to t('view.restore'), root_path %></p>
 
 <h2><%= t('view.search') %></h2>
 <%= form_with(model: Task.new, method: :get, url: tasks_path, local: true) do |f| %>
@@ -26,7 +27,8 @@
       <th><%= link_to "<#{t.name}>", task_path(t.id) %></th>
       <td><%= t.content %></td>
       <td><%= "#{t('view.deadline')}：#{t.deadline}" %></td>
-      <td><%= "#{t('view.status')}：#{t.status_i18n}" %></td>
+      <td><%= t.status_i18n %></td>
+      <td><%= "#{t('view.priority')}：#{t.priority_i18n}" %></td>
       <td><%= link_to t('view.edit'), edit_task_path(t.id) %></td>
       <td><%= link_to t('view.delete'), task_path(t.id), method: :delete, data: { confirm: t('view.delete_confirm') } %></td>
     </tr>
