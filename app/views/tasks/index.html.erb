@@ -33,4 +33,5 @@
       <td><%= link_to t('view.delete'), task_path(t.id), method: :delete, data: { confirm: t('view.delete_confirm') } %></td>
     </tr>
   <% end %>
+  <%= paginate @tasks %>
 </table>
