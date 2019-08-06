@@ -17,6 +17,7 @@ ja:
     status: 状態
     priority: 優先度
     index: 一覧
+    task_index: タスク一覧
     new: 登録
     show: 詳細
     edit: 編集

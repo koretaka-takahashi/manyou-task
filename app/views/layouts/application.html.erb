@@ -9,9 +9,44 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="bg-light">
     <div class="container-fluid mt-5">
-      <%= yield %>
+      <div>
+        <header class="text-white bg-primary border border-dark rounded mx-4 mb-5 py-4 pl-5">
+          <h1 class="mt-2">MY TASKS</h1>
+        </header>
+      </div>  
+      
+      <div class="row">
+        <aside class="col-md-2 border border-secondary ml-5 mb-4 pt-5 pl-5 alert alert-danger">
+          <h2 class=""><%= link_to t('view.index'), root_path, class: "text-dark" %></h2>
+          <button class="btn btn-light btn-outline-dark mb-2"><%= link_to t('view.sort_by_deadline'), root_path(sort_by_deadline: "true"), class: "text-dark" %></button>
+          <button class="btn btn-light btn-outline-dark"><%= link_to t('view.sort_by_priority'), root_path(sort_by_priority: "true"), class: "text-dark" %></button>
+
+          <h2 class="my-4"><%= link_to t('view.new'), new_task_path, class: "text-dark" %></h2>
+        
+          <h2 class="mb-3"><%= t('view.search') %></h2>
+          <%= form_with(model: Task.new, method: :get, url: tasks_path, local: true) do |f| %>
+        
+          <%= f.label :name, t('view.name') %>
+          <p><%= f.text_field :name %></p>
+        
+          <%= f.label :status, t('view.status') %>
+          <p><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} , include_blank: true, selected: '' %></p>
+  
+          <p><%= f.hidden_field :search, value: 'true' %></p>
+          <p class="mt-4 ml-5"><%= f.submit t('view.search') %></p>
+          <% end %>
+        </aside>
+        
+        <div class="col-md-9">
+          <%= yield %>
+        </div>  
+      </div>
+
+      <footer>
+       <p class="text-center text-light bg-dark py-4 mx-4 mt-4 rounded">Copyright © 2019 K.TAKAHASHI</p>
+      </footer>
     </div>
   </body>
 </html>
