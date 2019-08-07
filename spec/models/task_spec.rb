@@ -52,7 +52,7 @@ RSpec.describe Task, type: :model do
       task = FactoryBot.create(:task, name: '-a-')
       task2 = FactoryBot.create(:task2)
       task3 = FactoryBot.create(:task3)
-      result = Task.search_by_name(task: {name: 'a'})
+      result = Task.search_by_name(task: {search_task_name: 'a'})
       expect(result[0]).to eq task
       expect(result.size).to be 1
     end  
@@ -61,7 +61,7 @@ RSpec.describe Task, type: :model do
       task = FactoryBot.create(:task, status: 2)
       task2 = FactoryBot.create(:task2)
       task3 = FactoryBot.create(:task3)
-      result = Task.search_by_status(task: {status: 2})
+      result = Task.search_by_status(task: {search_task_status: 2})
       expect(result[0]).to eq task
       expect(result.size).to be 1
     end  
