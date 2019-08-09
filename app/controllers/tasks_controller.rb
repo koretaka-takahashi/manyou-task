@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     elsif params[:sort_by_priority]
       @tasks = Task.page(params[:page]).per(PER).sort_by_priority
     elsif params[:task] && params[:task][:search]
-      if params[:task][:status] == ''
+      if params[:task][:search_task_status] == ''
         @tasks = Task.page(params[:page]).per(PER).search_by_name(params)
         return
       end  

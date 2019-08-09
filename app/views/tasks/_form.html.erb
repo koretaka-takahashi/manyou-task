@@ -7,20 +7,20 @@
     </ul>
   <% end %>
 
-  <p><%= f.label :name, t('view.name') %></p>
+  <%= f.label :name, t('view.name') %>
   <p><%= f.text_field :name %></p>
-
-  <p><%= f.label :content, t('view.content') %></p>
+  <br>
+  <%= f.label :content, t('view.content') %>
   <p><%= f.text_area :content %></p>
-
-  <p><%= f.label :deadline, t('view.deadline') %></p>
+  <br>
+  <%= f.label :deadline, t('view.deadline') %>
   <p><%= f.date_field :deadline %></p>
-
-  <p><%= f.label :status, t('view.status') %></p>
+  <br>
+  <%= f.label :status, t('view.status') %>
   <p><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %></p>
-
-  <p><%= f.label :priority, t('view.priority') %></p>
+  <br>
+  <%= f.label :priority, t('view.priority') %>
   <p><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %></p>
 
-  <%= f.submit t('view.create') %>
+  <p class="mt-5"><%= f.submit t('view.create') %></p>
 <% end %>

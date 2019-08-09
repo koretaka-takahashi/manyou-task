@@ -1,5 +1,7 @@
-<h1><%= t('view.edit') %></h1>
+<div class="edit-form ml-5">
+  <h1 class="mb-5"><%= t('view.edit') %></h1>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<p><%= link_to t('view.to_index'), root_path %></p>
+  <button class="float-left btn btn-primary my-5 ml-4"><%= link_to "<<#{t('view.to_index')}", root_path, class: 'link text-white' %></button>
+</div>

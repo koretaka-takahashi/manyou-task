@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.feature "タスク管理機能", type: :feature do
   scenario "タスクが作成される" do
     visit new_task_path
-    fill_in 'タスク', with: 'test1'
+    fill_in 'task[name]', with: 'test1'
     fill_in '内容', with: 'test1をやる'
     fill_in '終了期限', with: '2019/07/30'
-    select '着手中', from: '状態'
+    select '着手中', from: 'task[status]'
     select '高', from: '優先度'
     click_on '登録する'
     click_on '登録する'
@@ -18,7 +18,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "デフォルト値が正しく入ること" do
     visit new_task_path
-    fill_in 'タスク', with: 'test1'
+    fill_in 'task[name]', with: 'test1'
     click_on '登録する'
     click_on '登録する'
     expect(page).to have_content '作成中…'
@@ -54,7 +54,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     scenario "タスクを終了期限でソートできる" do
       visit tasks_path
-      click_on '終了期限でソート'
+      click_link '終了期限でソート'
       up_task = all('table tr')[0]
       under_task = all('table tr')[1]
       expect(up_task).to have_content 'test2をやる'
@@ -63,7 +63,7 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     scenario "タスクを優先度でソートできる" do
       visit tasks_path
-      click_on '優先度でソート'
+      click_link '優先度でソート'
       up_task = all('table tr')[0]
       under_task = all('table tr')[1]
       expect(up_task).to have_content 'test1をやる'
