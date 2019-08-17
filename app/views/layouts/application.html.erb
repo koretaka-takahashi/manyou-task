@@ -14,6 +14,13 @@
       <div>
         <header class="text-white bg-primary border border-dark rounded mx-4 mb-5 py-4 pl-5">
           <h1 class="mt-2">MY TASKS</h1>
+          <% if logged_in? %>
+            <p class="mb-0"><%= link_to t('view.profile'), user_path(current_user.id), class: 'text-white' %></p>
+            <p class="mb-0"><%= link_to t('view.logout'), session_path(current_user.id), method: :delete, class: 'text-white' %></p>
+          <% else %>
+            <p class="mb-0"><%= link_to t('view.login'), new_session_path, class: 'text-white' %></p>
+            <p class="mb-0"><%= link_to t('view.sign_up'), new_user_path, class: 'text-white' %></p>
+          <% end %>
         </header>
       </div>  
       
@@ -38,8 +45,11 @@
             <p class="mt-4 ml-5"><%= f.submit t('view.search') %></p>
           <% end %>
         </aside>
-        
+
         <div class="col-md-9">
+          <% flash.each do |key, value| %>
+            <h3 class="ml-4 my-4"><%= content_tag(:div, value, class: "#{key}") %></h3>
+          <% end %>
           <%= yield %>
         </div>  
       </div>

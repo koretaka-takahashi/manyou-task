@@ -6,3 +6,7 @@ ja:
       task:
         name: タスク名
         content: 内容
+      user:
+        name: ユーザー名
+        password: パスワード
+        password_confirmation: 確認用パスワード  

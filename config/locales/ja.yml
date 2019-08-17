@@ -11,7 +11,14 @@ ja:
         middle: 中
         low: 低      
   view:
-    name: タスク名
+    task_name: タスク名
+    user_name: ユーザー名
+    password: パスワード
+    password_confirmaion: 確認用パスワード
+    login: ログイン
+    logout: ログアウト
+    sign_up: ユーザー登録
+    profile: プロフィール
     content: 内容
     deadline: 終了期限
     status: 状態
@@ -31,6 +38,9 @@ ja:
     create_confirm: この内容で登録しますか？
     restore: 元に戻す
     search: 検索
+    error_number: 件のエラーがあります。
+    login_danger: ログインに失敗しました。
+    logout_notice: ログアウトしました。
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。

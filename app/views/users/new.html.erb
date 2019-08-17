@@ -1,0 +1,29 @@
+
+
+<%= form_with(model: @user, local: true) do |f| %>
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+         <li class="error_messages"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%= f.label :name, t('view.user_name') %>
+  <%= f.text_field :name %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :password, t('view.password') %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmaion, t('view.password_confirmaion') %>
+  <%= f.password_field :password_confirmaion %>
+
+  <%= f.submit %>
+<% end %>
