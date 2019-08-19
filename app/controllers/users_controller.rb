@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :when_logged_in, only:[:new]
 
   def new
     @user = User.new
@@ -7,6 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      login
       redirect_to user_path(@user.id)
     else
       render :new  
@@ -23,4 +25,9 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end  
 
+  def when_logged_in
+    if logged_in?
+      redirect_to user_path(current_user.id), notice: t('view.must_logout_to_do')
+    end  
+  end
 end

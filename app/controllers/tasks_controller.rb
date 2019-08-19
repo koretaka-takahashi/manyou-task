@@ -5,17 +5,17 @@ class TasksController < ApplicationController
 
   def index
     if params[:sort_by_deadline] # 期限順の場合
-      @tasks = Task.page(params[:page]).per(PER).sort_by_deadline
+      @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_deadline
     elsif params[:sort_by_priority] # 優先順の場合
-      @tasks = Task.page(params[:page]).per(PER).sort_by_priority
+      @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_priority
     elsif params[:task] && params[:task][:search] # 検索の場合で
       if params[:task][:search_task_status] == '' # 名前のみ検索の場合
-        @tasks = Task.page(params[:page]).per(PER).search_by_name(params)
+        @tasks = current_user.tasks.page(params[:page]).per(PER).search_by_name(params)
         return
       end  # 名前と状態両方の検索の場合
-      @tasks = Task.page(params[:page]).per(PER).search_by_name(params).search_by_status(params)
+      @tasks = current_user.tasks.page(params[:page]).per(PER).search_by_name(params).search_by_status(params)
     else  # デフォルト並び替え（作成順）の場合
-      @tasks = Task.page(params[:page]).per(PER).sort_by_created_at
+      @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_created_at
     end
   end
 

@@ -26,6 +26,7 @@ ja:
     index: 一覧
     task_index: タスク一覧
     new: 登録
+    user_new: ユーザー登録
     show: 詳細
     edit: 編集
     delete: 削除
@@ -41,6 +42,7 @@ ja:
     error_number: 件のエラーがあります。
     login_danger: ログインに失敗しました。
     logout_notice: ログアウトしました。
+    must_logout_to_do: 操作のためにはログアウトが必要です。
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。

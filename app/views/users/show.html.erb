@@ -1,5 +1,10 @@
-<h2 class=""><%= @user.name %>さんのマイページ</h2>
-<p class="">登録メールアドレス：<%= @user.email %></p>
-<p class="">登録タスク：<%= @user.tasks.count %>件</p>
-<%= %>
-<%= %>
+<div class="ml-5">
+
+  <h2 class="mb-5"><%= @user.name %>さんのマイページ</h2>
+  <p class="">登録メールアドレス：<b><%= @user.email %></b></p><br>
+  <p class="">登録タスク：<b><%= @user.tasks.count %></b>件</p><br>
+  <button class="btn btn-light btn-outline-dark"><%= link_to t('view.logout'), session_path(current_user.id), method: :delete %></button>
+  <%= %>
+  <%= %>
+
+</div>

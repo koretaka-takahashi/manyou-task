@@ -8,17 +8,17 @@
   <% end %>
 
   <%= f.label :name, t('view.task_name') %>
-  <p><%= f.text_field :name %></p>
-  <br>
+  <p><%= f.text_field :name %></p><br>
+  
   <%= f.label :content, t('view.content') %>
-  <p><%= f.text_area :content %></p>
-  <br>
+  <p><%= f.text_area :content %></p><br>
+  
   <%= f.label :deadline, t('view.deadline') %>
-  <p><%= f.date_field :deadline %></p>
-  <br>
+  <p><%= f.date_field :deadline %></p><br>
+  
   <%= f.label :status, t('view.status') %>
-  <p><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %></p>
-  <br>
+  <p><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %></p><br>
+  
   <%= f.label :priority, t('view.priority') %>
   <p><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %></p>
 
