@@ -24,15 +24,16 @@ class TasksController < ApplicationController
   end
 
   def confirm
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
   end  
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to task_path(@task.id), notice: t('view.flash.success')
+    else
+      render :new
     end
-    render :new
   end
 
   def show
@@ -60,17 +61,4 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:name, :content, :deadline, :status, :priority)
   end
-
-  def login_check
-    render 'sessions/new' if logged_in? == false
-  end  
-
-  # 多分必要なくなる
-  # def query
-  #   if params[:task].present? && params[:task][:name]
-  #     Task.where('name LIKE ?', "%#{params[:task][:name]}%")
-  #   else
-  #     Task.order(created_at: "DESC")
-  #   end
-  # end
 end

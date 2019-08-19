@@ -43,6 +43,7 @@ ja:
     login_danger: ログインに失敗しました。
     logout_notice: ログアウトしました。
     must_logout_to_do: 操作のためにはログアウトが必要です。
+    not_authorized: 権限がありません。
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。
