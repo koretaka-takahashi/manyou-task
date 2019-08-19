@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :redirect_when_logged_in, only:[:new]
-  before_action :login_check, only:[:show]
+  before_action :login_check, only:[:show, :edit]
+  before_action :set_user, only:[:edit, :update, :destroy]
 
 
   def new
@@ -11,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login
-      redirect_to user_path(@user.id)
+      redirect_to user_path(@user.id), notice: t('view.flash.user_create')
     else
       render :new  
     end  
@@ -25,11 +26,28 @@ class UsersController < ApplicationController
     end
   end  
 
+  def edit
+  end  
+
+  def update
+    @user.update(user_params)
+    redirect_to user_path(@user.id), notice: t('view.flash.user_update')
+  end
+  
+  def destroy
+    @user.destroy
+    redirect_to root_path, notice: t('view.flash.user_delete')
+  end  
+
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end  
+
+  def set_user
+    @user= User.find(params[:id])
+  end
 
   def redirect_when_logged_in
     if logged_in?

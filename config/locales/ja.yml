@@ -14,7 +14,7 @@ ja:
     task_name: タスク名
     user_name: ユーザー名
     password: パスワード
-    password_confirmaion: 確認用パスワード
+    password_confirmation: 確認用パスワード
     login: ログイン
     logout: ログアウト
     sign_up: ユーザー登録
@@ -25,8 +25,12 @@ ja:
     priority: 優先度
     index: 一覧
     task_index: タスク一覧
-    new: 登録
+    registerd_task: 登録タスク
+    new: 作成
     user_new: ユーザー登録
+    user_edit: ユーザー情報を編集する
+    user_delete: ユーザー情報を削除する
+    user_edit_title: ユーザー情報編集
     show: 詳細
     edit: 編集
     delete: 削除
@@ -35,7 +39,7 @@ ja:
     to_index: 一覧へ
     sort_by_deadline: 終了期限でソート
     sort_by_priority: 優先度でソート
-    delete_confirm: 本当に削除しますか？
+    delete_confirm: 削除してもよろしいですか？
     create_confirm: この内容で登録しますか？
     restore: 元に戻す
     search: 検索
@@ -48,6 +52,9 @@ ja:
       success: タスクを作成しました。
       update: タスクを更新しました。
       delete: タスクを削除しました。
+      user_create: ユーザー情報を登録しました。
+      user_update: ユーザー情報を更新しました。
+      user_delete: ユーザー情報を削除しました。
   activerecord:
     errors:
       messages:
