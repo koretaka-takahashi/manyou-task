@@ -19,8 +19,8 @@
               <h5 class="float-left"><%= link_to t('view.profile'), user_path(current_user.id), class: 'text-white mr-5' %></h5>
               <h5 class="float-left"><%= link_to t('view.logout'), session_path(current_user.id), method: :delete, class: 'text-white ml-4' %></h5>
             <% else %>
-              <p class="mb-0"><%= link_to t('view.login'), new_session_path, class: 'text-white' %></p>
-              <p class="mb-0"><%= link_to t('view.sign_up'), new_user_path, class: 'text-white' %></p>
+              <h5 class="float-left"><%= link_to t('view.login'), new_session_path, class: 'text-white mr-5' %></h5>
+              <h5 class="float-left"><%= link_to t('view.sign_up'), new_user_path, class: 'text-white ml-4' %></h5>
             <% end %>
           </div>
         </header>
@@ -37,7 +37,7 @@
           <h2 class="mb-3"><%= t('view.search') %></h2>
           <%= form_with(model: Task.new, method: :get, url: tasks_path, local: true) do |f| %>
         
-            <%= f.label :search_task_name, t('view.name') %>
+            <%= f.label :search_task_name, t('view.task_name') %>
             <p><%= f.text_field :search_task_name %></p>
         
             <%= f.label :search_task_status, t('view.status') %>
