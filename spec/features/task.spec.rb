@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   background do
-    FactoryBot.create(:task)
-    FactoryBot.create(:task2)
+    FactoryBot.create(:task, user_id: 1)
+    FactoryBot.create(:task2, user_id: 2)
     visit new_session_path
     fill_in 'Email', with: 'a@a.com'
     fill_in 'session[password]', with: 'aaaaaa'

@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :task do
     name { 'test1' }
     content { 'test1をやる' }
@@ -8,16 +7,16 @@ FactoryBot.define do
     deadline { Time.current + 2.days }
     status { 0 }
     priority { 0 }
-    association :user
+  end  
     
-    factory :task2　do
-      name { 'test2' }
-      content { 'test2をやる' }
-      id { 2 }
-      updated_at { Time.current + 2.days }
-      deadline { Time.current + 1.days }
-      status { 1 }
-      priority { 2 }
+  factory :task2, class: Task do
+    name { 'test2' }
+    content { 'test2をやる' }
+    id { 2 }
+    updated_at { Time.current + 2.days }
+    deadline { Time.current + 1.days }
+    status { 1 }
+    priority { 2 }
   end
   
     # factory :task3, class: Task do
