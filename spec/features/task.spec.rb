@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   background do
-    FactoryBot.create(:task, user_id: 1)
-    FactoryBot.create(:task2, user_id: 2)
+    @user = FactoryBot.create(:user)
+    @task = FactoryBot.create(:task, user_id: @user.id)
+    @user2 = FactoryBot.create(:user2)
+    @task2 = FactoryBot.create(:task2, user_id: @user2.id)
+    # binding.pry
     visit new_session_path
     fill_in 'Email', with: 'a@a.com'
     fill_in 'session[password]', with: 'aaaaaa'
@@ -11,6 +14,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスクが作成される" do
+    visit new_task_path
     fill_in 'task[name]', with: 'test1'
     fill_in '内容', with: 'test1をやる'
     fill_in '終了期限', with: '2019/07/30'
@@ -18,6 +22,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     select '高', from: '優先度'
     click_on '登録する'
     click_on '登録する'
+    # save_and_open_page
     expect(page).to have_content 'test1をやる'
     expect(page).to have_content '2019-07-30'
     expect(page).to have_content '着手中'
@@ -34,13 +39,19 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスクの詳細が表示される" do
-    visit task_path(1)
+    # binding.pry
+    # save_and_open_page
+    visit task_path(@task.id)
     expect(page).to have_content "test1をやる"
   end
 
   feature "タスク一覧画面のテスト" do
     background do
-    
+      @task2 = FactoryBot.create(:task2, user_id: @user.id)
+      visit new_session_path
+      fill_in 'Email', with: 'a@a.com'
+      fill_in 'session[password]', with: 'aaaaaa'
+      click_button 'ログイン'
     end  
 
     scenario "タスク一覧が表示される" do

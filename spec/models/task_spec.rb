@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  before do
+    # @user = FactoryBot.create(:user)
+    # @task = FactoryBot.create(:task, user_id: @user.id)
+    # @user2 = FactoryBot.create(:user2)
+    # @task2 = FactoryBot.create(:task2, user_id: @user2.id)
+  end  
 
   it "nameが空だとバリデーションエラーになること" do
     # task = Task.new(name: '', content: 'test1をやる')
