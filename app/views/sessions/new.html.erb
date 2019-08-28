@@ -1,0 +1,14 @@
+<div class="ml-5">
+  <h1 class="mb-5"><%= t('view.login') %></h1>
+
+  <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+
+    <%= f.label :email %>
+    <p><%= f.email_field :email %></p><br>
+
+    <%= f.label t('view.password') %>
+    <p><%= f.password_field :password %></p><br>
+
+    <%= f.submit t('view.login') %>
+  <% end %>
+</div>

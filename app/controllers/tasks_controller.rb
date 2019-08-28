@@ -1,20 +1,21 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:show, :edit, :update, :destroy]
+  before_action :login_check
   PER = 10
 
   def index
-    if params[:sort_by_deadline]
-      @tasks = Task.page(params[:page]).per(PER).sort_by_deadline
-    elsif params[:sort_by_priority]
-      @tasks = Task.page(params[:page]).per(PER).sort_by_priority
-    elsif params[:task] && params[:task][:search]
-      if params[:task][:search_task_status] == ''
-        @tasks = Task.page(params[:page]).per(PER).search_by_name(params)
+    if params[:sort_by_deadline] # 期限順の場合
+      @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_deadline
+    elsif params[:sort_by_priority] # 優先順の場合
+      @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_priority
+    elsif params[:task] && params[:task][:search] # 検索の場合で
+      if params[:task][:search_task_status] == '' # 名前のみ検索の場合
+        @tasks = current_user.tasks.page(params[:page]).per(PER).search_by_name(params)
         return
-      end  
-      @tasks = Task.page(params[:page]).per(PER).search_by_name(params).search_by_status(params)
-    else  
-      @tasks = Task.page(params[:page]).per(PER).sort_by_created_at
+      end  # 名前と状態両方の検索の場合
+      @tasks = current_user.tasks.page(params[:page]).per(PER).search_by_name(params).search_by_status(params)
+    else  # デフォルト並び替え（作成順）の場合
+      @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_created_at
     end
   end
 
@@ -23,11 +24,11 @@ class TasksController < ApplicationController
   end
 
   def confirm
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
   end  
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to task_path(@task.id), notice: t('view.flash.success')
     else
@@ -59,14 +60,5 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :content, :deadline, :status, :priority)
-  end  
-
-  # 多分必要なくなる
-  # def query
-  #   if params[:task].present? && params[:task][:name]
-  #     Task.where('name LIKE ?', "%#{params[:task][:name]}%")
-  #   else
-  #     Task.order(created_at: "DESC")
-  #   end
-  # end
+  end
 end

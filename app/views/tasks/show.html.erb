@@ -8,8 +8,8 @@
   <p><%= t('view.priority') %>：<%= @task.priority_i18n %></p>
 
   <div class="mt-5 clearfix">
-    <button class="float-left mr-4 btn btn-success"><%= link_to t('view.edit'), edit_task_path(@task.id), class: 'text-white' %></button>
-    <button class="float-left mr-4 btn btn-danger"><%= link_to t('view.delete'), task_path(@task.id), method: :delete, data: { confirm: t('view.delete_confirm') }, class: 'text-white' %></button>
-    <button class="float-left btn btn-primary"><%= link_to "<<#{t('view.to_index')}", root_path, class: 'link text-white' %></button>
+    <button class="float-left mr-4 btn btn-success btn-outline-dark"><%= link_to t('view.edit'), edit_task_path(@task.id), class: 'text-white' %></button>
+    <button class="float-left mr-4 btn btn-danger btn-outline-dark"><%= link_to t('view.delete'), task_path(@task.id), method: :delete, data: { confirm: t('view.delete_confirm') }, class: 'text-white' %></button>
+    <button class="float-left btn btn-primary btn-outline-dark"><%= link_to "<<#{t('view.to_index')}", root_path, class: 'link text-white' %></button>
   </div>
 </div>

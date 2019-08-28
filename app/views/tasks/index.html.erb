@@ -1,5 +1,4 @@
-<%= notice %>
-
+<h2 class="mr-5 mb-5 mt-3 text-center"><%= "#{current_user.name}" %>さんのタスク一覧</h3>
 
 <div class="index my-4 ml-5">
   <h3 class="mx-2 pb-3"><%= paginate @tasks %></h3>
@@ -11,8 +10,8 @@
           <td class="col-md-2 text-center"><%= "#{t('view.deadline')}" %><br><%= t.deadline %></td>
           <td class="col-md-1"><%= t.status_i18n %></td>
           <td class="col-md-1 text-center"><%= "#{t('view.priority')}" %><br><b><%= t.priority_i18n %></b></td>
-          <td class="col-md-1"><button class="btn btn-success"><%= link_to t('view.edit'), edit_task_path(t.id), class: 'text-white' %></button></td>
-          <td class="col-md-1"><button class="btn btn-danger"><%= link_to t('view.delete'), task_path(t.id), method: :delete, data: { confirm: t('view.delete_confirm') }, class: 'text-white' %></button></td>
+          <td class="col-md-1"><button class="btn btn-success btn-outline-dark"><%= link_to t('view.edit'), edit_task_path(t.id), class: 'text-white' %></button></td>
+          <td class="col-md-1"><button class="btn btn-danger btn-outline-dark"><%= link_to t('view.delete'), task_path(t.id), method: :delete, data: { confirm: t('view.delete_confirm') }, class: 'text-white' %></button></td>
         </tr>
       <% end %>
     </table>

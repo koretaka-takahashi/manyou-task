@@ -12,23 +12,32 @@
   <body class="bg-light">
     <div class="container-fluid mt-5">
       <div>
-        <header class="text-white bg-primary border border-dark rounded mx-4 mb-5 py-4 pl-5">
-          <h1 class="mt-2">MY TASKS</h1>
+        <header class="row text-white bg-primary border border-dark rounded mx-4 mb-5 py-4 pl-5">
+          <h1 class="col-md-2 mt-2">MY TASKS</h1>
+          <div class="header-right offset-md-7 col-md-3 clearfix d-flex align-items-center">
+            <% if logged_in? %>
+              <h5 class="float-left"><%= link_to t('view.profile'), user_path(current_user.id), class: 'text-white mr-5' %></h5>
+              <h5 class="float-left"><%= link_to t('view.logout'), session_path(current_user.id), method: :delete, class: 'text-white ml-4' %></h5>
+            <% else %>
+              <h5 class="float-left"><%= link_to t('view.login'), new_session_path, class: 'text-white mr-5' %></h5>
+              <h5 class="float-left"><%= link_to t('view.sign_up'), new_user_path, class: 'text-white ml-4' %></h5>
+            <% end %>
+          </div>
         </header>
       </div>  
       
       <div class="row">
         <aside class="col-md-2 border border-secondary ml-5 mb-4 pt-5 pl-5 alert alert-danger">
-          <h2 class=""><%= link_to t('view.index'), root_path, class: "text-dark" %></h2>
-          <button class="btn btn-light btn-outline-dark mb-2"><%= link_to t('view.sort_by_deadline'), root_path(sort_by_deadline: "true"), class: "text-dark" %></button>
-          <button class="btn btn-light btn-outline-dark"><%= link_to t('view.sort_by_priority'), root_path(sort_by_priority: "true"), class: "text-dark" %></button>
+          <h2 class="mb-4"><%= link_to t('view.index'), root_path, class: "text-dark" %></h2>
+          <button class="btn btn-light btn-outline-dark mb-4"><%= link_to t('view.sort_by_deadline'), root_path(sort_by_deadline: "true"), class: "text-dark" %></button>
+          <button class="btn btn-light btn-outline-dark mb-4"><%= link_to t('view.sort_by_priority'), root_path(sort_by_priority: "true"), class: "text-dark" %></button>
 
-          <h2 class="my-4"><%= link_to t('view.new'), new_task_path, class: "text-dark" %></h2>
+          <h2 class="mt-4 mb-5"><%= link_to t('view.new'), new_task_path, class: "text-dark" %></h2>
         
           <h2 class="mb-3"><%= t('view.search') %></h2>
           <%= form_with(model: Task.new, method: :get, url: tasks_path, local: true) do |f| %>
         
-            <%= f.label :search_task_name, t('view.name') %>
+            <%= f.label :search_task_name, t('view.task_name') %>
             <p><%= f.text_field :search_task_name %></p>
         
             <%= f.label :search_task_status, t('view.status') %>
@@ -38,8 +47,11 @@
             <p class="mt-4 ml-5"><%= f.submit t('view.search') %></p>
           <% end %>
         </aside>
-        
+
         <div class="col-md-9">
+          <% flash.each do |key, value| %>
+            <h3 class="ml-4 my-4"><%= content_tag(:div, value, class: "#{key}") %></h3>
+          <% end %>
           <%= yield %>
         </div>  
       </div>
