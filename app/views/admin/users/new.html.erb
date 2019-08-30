@@ -1,0 +1,33 @@
+<h1>ユーザー作成画面</h1>
+
+<div class="ml-5">
+  <h1 class="mb-5"><%= t('view.user_new') %></h1>
+
+  <%= form_with(model: @user, url: admin_users_path, local: true ) do |f| %>
+
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+           <li class="error_messages"><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.label :name, t('view.user_name') %>
+    <p><%= f.text_field :name %></p><br>
+
+    <%= f.label :email %>
+    <p><%= f.email_field :email %></p><br>
+
+    <%= f.label :password, t('view.password') %>
+    <p><%= f.password_field :password %></p><br>
+
+    <%= f.label :password_confirmation, t('view.password_confirmation') %>
+    <p><%= f.password_field :password_confirmation %></p><br>
+
+    <p><%= f.submit %></p>
+  <% end %>
+
+</div>

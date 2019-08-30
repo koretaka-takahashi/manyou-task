@@ -1,7 +1,11 @@
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
   before_action :redirect_when_logged_in, only:[:new]
   before_action :login_check, only:[:show, :edit]
   before_action :set_user, only:[:edit, :update, :destroy]
+
+  def index
+    @users = User.order(created_at: "DESC")
+  end
 
   def new
     @user = User.new
@@ -20,6 +24,7 @@ class UsersController < ApplicationController
   def show
     if params[:id].to_i == current_user.id
       @user = User.find(params[:id]) 
+      @tasks = @user.tasks.order(created_at: "DESC").page(params[:page]).per(20)
     else
       redirect_to root_path, notice: t('view.not_authorized') 
     end
