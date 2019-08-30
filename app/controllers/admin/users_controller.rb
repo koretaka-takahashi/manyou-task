@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :redirect_when_logged_in, only:[:new]
-  before_action :login_check, only:[:show, :edit]
+  before_action :login_check, only:[:show, :edit] # current_userがいるかどうかのみチェック。不要？？
   before_action :set_user, only:[:edit, :update, :destroy]
 
   def index
