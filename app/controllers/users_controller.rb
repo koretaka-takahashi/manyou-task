@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     end  
   end
 
-  def redirect_when_visit_others_page
+  def redirect_when_visit_others_page # これ使ってなくね？
     if params[:id].to_i != current_user.id
       redirect_to user_path(current_user.id), notice: t('view.not_authorized') 
     end  

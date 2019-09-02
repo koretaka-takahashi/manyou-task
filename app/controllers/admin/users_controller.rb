@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only:[:edit, :update, :destroy]
 
   def index
-    @users = User.order(created_at: "DESC")
+    @users = User.preload(:tasks).order(created_at: "DESC").page(params[:page]).per(20)
   end
 
   def new
@@ -22,12 +22,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    if params[:id].to_i == current_user.id
+    # if params[:id].to_i == current_user.id
       @user = User.find(params[:id]) 
       @tasks = @user.tasks.order(created_at: "DESC").page(params[:page]).per(20)
-    else
-      redirect_to root_path, notice: t('view.not_authorized') 
-    end
+    # else
+    #   redirect_to root_path, notice: t('view.not_authorized') 
+    # end
   end  
 
   def edit
@@ -59,7 +59,7 @@ class Admin::UsersController < ApplicationController
     end  
   end
 
-  def redirect_when_visit_others_page
+  def redirect_when_visit_others_page # これ使ってなくね？
     if params[:id].to_i != current_user.id
       redirect_to user_path(current_user.id), notice: t('view.not_authorized') 
     end  
