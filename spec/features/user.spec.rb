@@ -16,7 +16,7 @@ RSpec.feature "ユーザー機能", type: :feature do
   feature "ユーザー登録後のテスト" do
     background do
       FactoryBot.create(:user, id: 1)
-      FactoryBot.create(:user2, id: 2)
+      FactoryBot.create(:user2, id: 3)
     end  
 
     scenario " 同じEmailを登録できないこと" do
@@ -56,7 +56,7 @@ RSpec.feature "ユーザー機能", type: :feature do
   
       scenario "自分が作成したタスクだけが表示されること" do
         FactoryBot.create(:task, user_id: 1)
-        FactoryBot.create(:task2, user_id: 2)
+        FactoryBot.create(:task2, user_id: 3)
         click_on '一覧'
         expect(page).to have_content 'test1をやる'
         expect(page).not_to have_content 'test2をやる'
@@ -74,23 +74,40 @@ RSpec.feature "ユーザー機能", type: :feature do
 
       feature "ユーザー管理機能のテスト" do
         scenario "ユーザー一覧が表示されること" do
-          
           click_on '管理メニュー'
-          save_and_open_page
           expect(page).to have_content 'a'
-          expect(page).to have_content 'あああ'
+          expect(page).to have_content 'b'
         end  
     
         scenario "ユーザーが作成されること" do
-          
+          click_on 'ログアウト'
+          click_on '管理メニュー'
+          click_link 'ユーザー作成'
+          fill_in 'ユーザー名', with: 'c'
+          fill_in 'Email', with: 'c@c.com'
+          fill_in 'パスワード', with: 'cccccc'
+          fill_in '確認用パスワード', with: 'cccccc'
+          click_on '登録する'
+          expect(page).to have_content 'cさんのマイページ'
+          expect(page).to have_content 'c@c.com'
         end  
     
         scenario "ユーザーが更新されること" do
-          
+          user = FactoryBot.create(:user3, id: 2)
+          visit edit_admin_user_path(user.id)
+          fill_in 'ユーザー名', with: 'c'
+          fill_in 'Email', with: 'd@d.com'
+          fill_in 'パスワード', with: 'cccccc'
+          fill_in '確認用パスワード', with: 'cccccc'
+          click_on '更新する'
+          expect(page).to have_content 'cさんのマイページ'
+          expect(page).to have_content 'd@d.com'
         end  
     
         scenario "ユーザーが削除されること" do
-          
+          visit admin_user_path(3)
+          click_link 'ユーザー情報を削除する'
+          expect(page).to have_content 'ユーザー情報を削除しました。'
         end  
       end
     end   

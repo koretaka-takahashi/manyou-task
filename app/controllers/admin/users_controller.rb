@@ -35,7 +35,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user.update(user_params)
-    redirect_to user_path(@user.id), notice: t('view.flash.user_update')
+    redirect_to admin_user_path(@user.id), notice: t('view.flash.user_update')
   end
   
   def destroy
