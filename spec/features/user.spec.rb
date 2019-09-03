@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "ユーザー管理機能", type: :feature do
+RSpec.feature "ユーザー機能", type: :feature do
 
   scenario "ユーザ登録および同時にログインされること" do
     visit new_user_path
@@ -71,6 +71,28 @@ RSpec.feature "ユーザー管理機能", type: :feature do
         visit user_path(2)
         expect(page).to have_content '権限がありません。'
       end 
+
+      feature "ユーザー管理機能のテスト" do
+        scenario "ユーザー一覧が表示されること" do
+          
+          click_on '管理メニュー'
+          save_and_open_page
+          expect(page).to have_content 'a'
+          expect(page).to have_content 'あああ'
+        end  
+    
+        scenario "ユーザーが作成されること" do
+          
+        end  
+    
+        scenario "ユーザーが更新されること" do
+          
+        end  
+    
+        scenario "ユーザーが削除されること" do
+          
+        end  
+      end
     end   
-  end  
+  end 
 end  

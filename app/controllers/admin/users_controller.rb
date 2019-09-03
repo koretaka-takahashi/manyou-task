@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only:[:edit, :update, :destroy]
 
   def index
-    @users = User.preload(:tasks).order(created_at: "DESC").page(params[:page]).per(20)
+    @users = User.includes(:tasks).order(created_at: "DESC").page(params[:page]).per(20)
   end
 
   def new

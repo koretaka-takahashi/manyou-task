@@ -6,7 +6,7 @@
       <% @users.each do |u| %>
         <tr class="">
           <th class=""><%= link_to u.name, admin_user_path(u.id), class: 'text-dark' %></th>
-          <td class="">(<%= u.tasks.count %>)</td>
+          <td class="">(<%= u.tasks.size %>)</td>
         </tr>
       <% end %>
     </table>
