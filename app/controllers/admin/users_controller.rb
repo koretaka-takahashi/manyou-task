@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :check_admin_user
   before_action :redirect_when_logged_in, only:[:new]
   before_action :login_check, only:[:show, :edit] # current_userがいるかどうかのみチェック。不要？？
   before_action :set_user, only:[:edit, :update, :destroy]
@@ -64,4 +65,10 @@ class Admin::UsersController < ApplicationController
       redirect_to user_path(current_user.id), notice: t('view.not_authorized') 
     end  
   end 
+
+  def check_admin_user
+    unless current_user.admin
+      render_404
+    end  
+  end  
 end
