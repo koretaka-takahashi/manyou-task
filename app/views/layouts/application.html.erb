@@ -46,6 +46,8 @@
             <p><%= f.hidden_field :search, value: 'true' %></p>
             <p class="mt-4 ml-5"><%= f.submit t('view.search') %></p>
           <% end %>
+
+          <h3><%= link_to "管理メニュー", admin_users_path %></h3>          
         </aside>
 
         <div class="col-md-9">
