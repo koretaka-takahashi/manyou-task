@@ -25,6 +25,9 @@
     <%= f.label :password_confirmation, t('view.password_confirmation') %>
     <p><%= f.password_field :password_confirmation %></p><br>
 
+    <%= f.label :admin, t('view.admin_authority') %>
+    <p><%= f.check_box :admin %></p><br>
+
     <p><%= f.submit %></p>
   <% end %>
 

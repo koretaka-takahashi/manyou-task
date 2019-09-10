@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :check_admin_user
-  before_action :redirect_when_logged_in, only:[:new]
+  # before_action :redirect_when_logged_in, only:[:new]
   before_action :login_check, only:[:show, :edit] # current_userがいるかどうかのみチェック。不要？？
   before_action :set_user, only:[:edit, :update, :destroy]
 
@@ -47,18 +47,18 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end  
 
   def set_user
     @user= User.find(params[:id])
   end
 
-  def redirect_when_logged_in
-    if logged_in?
-      redirect_to user_path(current_user.id), notice: t('view.must_logout_to_do')
-    end  
-  end
+  # def redirect_when_logged_in
+  #   if logged_in?
+  #     redirect_to user_path(current_user.id), notice: t('view.must_logout_to_do')
+  #   end  
+  # end
 
   def redirect_when_visit_others_page # これ使ってなくね？
     if params[:id].to_i != current_user.id

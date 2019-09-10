@@ -48,6 +48,9 @@ ja:
     logout_notice: ログアウトしました。
     must_logout_to_do: 操作のためにはログアウトが必要です。
     not_authorized: 権限がありません。
+    admin: 管理者
+    admin_authority: 管理者権限
+    cant_delete_admin_more_than_this: これ以上管理者を削除できません。
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。

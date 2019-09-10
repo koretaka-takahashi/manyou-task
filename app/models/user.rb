@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  before_destroy do
+    throw (:abort) if User.where(admin: true).count <= 1
+  end
+  
   has_many :tasks, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 30 }
