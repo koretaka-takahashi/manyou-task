@@ -41,7 +41,7 @@ class Admin::UsersController < ApplicationController
   
   def destroy
     @user.destroy
-    redirect_to root_path, notice: t('view.flash.user_delete')
+    redirect_to admin_users_path, notice: t('view.flash.user_delete')
   end  
 
   private
