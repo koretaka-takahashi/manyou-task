@@ -15,8 +15,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      login
-      redirect_to user_path(@user.id), notice: t('view.flash.user_create')
+      redirect_to admin_user_path(@user.id), notice: t('view.flash.user_create')
     else
       render :new  
     end  
