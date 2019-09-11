@@ -44,10 +44,12 @@
             <p><%= f.select :search_task_status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} , include_blank: true, selected: '' %></p>
   
             <p><%= f.hidden_field :search, value: 'true' %></p>
-            <p class="mt-4 ml-5"><%= f.submit t('view.search') %></p>
+            <p class="mt-4 ml-5 mb-5"><%= f.submit t('view.search') %></p>
           <% end %>
 
-          <h3><%= link_to "管理メニュー", admin_users_path %></h3>          
+          <% if logged_in? && @current_user.admin == true %>
+            <h4 class="mb-5" ><%= link_to "管理メニュー", admin_users_path %></h4>
+          <% end %>    
         </aside>
 
         <div class="col-md-9">

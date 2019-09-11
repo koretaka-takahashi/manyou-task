@@ -41,7 +41,7 @@ class Admin::UsersController < ApplicationController
   
   def destroy
     unless @user.destroy
-      redirect_to admin_users_path, notice: t('view.cant_delete_last_admin')
+      redirect_to admin_user_path(@user.id), notice: t('view.cant_delete_last_admin')
     else
       redirect_to admin_users_path, notice: t('view.flash.user_delete')
     end
