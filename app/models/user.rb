@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-  before_destroy do
-    throw(:abort) if User.where(admin: true).count <= 2 && self.admin?
-  end
+  before_destroy :cant_delete_last_admin
 
   has_many :tasks, dependent: :destroy
 
@@ -14,4 +12,10 @@ class User < ApplicationRecord
   
   before_validation { email.downcase! }
   has_secure_password
+
+  private
+
+  def cant_delete_last_admin
+    throw(:abort) if User.where(admin: true).count <= 1 && self.admin?
+  end
 end

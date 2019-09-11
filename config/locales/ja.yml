@@ -50,7 +50,7 @@ ja:
     not_authorized: 権限がありません。
     admin: 管理者
     admin_authority: 管理者権限
-    cant_delete_admin_more_than_this: これ以上管理者を削除できません。
+    cant_delete_last_admin: 管理者が一人の為削除できません。
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。
