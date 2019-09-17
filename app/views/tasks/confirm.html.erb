@@ -7,6 +7,7 @@
     <%= f.hidden_field :deadline %>
     <%= f.hidden_field :status %>
     <%= f.hidden_field :priority %>
+    <%= f.hidden_field :label_ids %>
 
     <p><%= "#{t('view.task_name')}：#{@task.name}" %></p>
     <p><%= "#{t('view.content')}：#{@task.content}" %></p>

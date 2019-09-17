@@ -9,6 +9,11 @@ class TasksController < ApplicationController
     elsif params[:sort_by_priority] # 優先順の場合
       @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_priority
     elsif params[:task] && params[:task][:search] # 検索の場合で
+      if params[:task][:search_task_label].present?
+        task_ids = TaskLabel.where(label_id: params[:task][:search_task_label]).pluck(:task_id)
+        @tasks = current_user.tasks.page(params[:page]).per(PER).find(task_ids)
+        return
+      end
       if params[:task][:search_task_status] == '' # 名前のみ検索の場合
         @tasks = current_user.tasks.page(params[:page]).per(PER).search_by_name(params)
         return
@@ -30,6 +35,11 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
+      if params[:task][:label_ids].present?
+        params[:task][:label_ids].split.each do |label_id|
+          TaskLabel.create(task_id: @task.id, label_id: label_id)
+        end
+      end
       redirect_to task_path(@task.id), notice: t('view.flash.success')
     else
       render :new
@@ -59,6 +69,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :content, :deadline, :status, :priority)
+    params.require(:task).permit(:name, :content, :deadline, :status, :priority, label_ids:[])
   end
 end

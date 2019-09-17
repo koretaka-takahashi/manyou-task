@@ -43,6 +43,9 @@
             <%= f.label :search_task_status, t('view.status') %>
             <p><%= f.select :search_task_status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} , include_blank: true, selected: '' %></p>
   
+            <%= f.label :search_task_label, t('view.label') %>
+            <p><%= f.select :search_task_label, Label.all.map {|k| [I18n.t("labels.name.#{k.name}"), k.id]} , include_blank: true, selected: '' %></p>
+
             <p><%= f.hidden_field :search, value: 'true' %></p>
             <p class="mt-4 ml-5 mb-5"><%= f.submit t('view.search') %></p>
           <% end %>
