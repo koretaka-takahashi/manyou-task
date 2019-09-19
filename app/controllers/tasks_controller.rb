@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     elsif params[:task] && params[:task][:search] # 検索の場合で
       if params[:task][:search_task_label].present?
         task_ids = TaskLabel.where(label_id: params[:task][:search_task_label]).pluck(:task_id)
-        @tasks = current_user.tasks.page(params[:page]).per(PER).find(task_ids)
+        @tasks = current_user.tasks.page(params[:page]).per(PER).where(id: task_ids)
         return
       end
       if params[:task][:search_task_status] == '' # 名前のみ検索の場合

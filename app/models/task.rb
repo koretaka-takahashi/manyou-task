@@ -15,5 +15,5 @@ class Task < ApplicationRecord
   scope :sort_by_created_at, -> {order(created_at: "DESC")}
   scope :search_by_name, -> params {where("name LIKE ?", "%#{ params[:task][:search_task_name]}%")}
   scope :search_by_status, -> params {where(status: params[:task][:search_task_status])}
-  # scope :search_by_label, -> params {where(labels: params[:task][:search_task_label])}
+  # scope :search_by_label, -> params {where(id: TaskLabel.where(label_id: params[:task][:search_task_label]).pluck(:task_id))}
 end
