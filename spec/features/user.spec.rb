@@ -15,8 +15,8 @@ RSpec.feature "ユーザー機能", type: :feature do
 
   feature "ユーザー登録後のテスト" do
     background do
-      FactoryBot.create(:user, id: 1)
-      FactoryBot.create(:user2, id: 3)
+      FactoryBot.create(:user, id: 1, admin: true)
+      FactoryBot.create(:user2, id: 3, admin: true)
     end  
 
     scenario " 同じEmailを登録できないこと" do
@@ -80,20 +80,20 @@ RSpec.feature "ユーザー機能", type: :feature do
         end  
     
         scenario "ユーザーが作成されること" do
-          click_on 'ログアウト'
           click_on '管理メニュー'
           click_link 'ユーザー作成'
           fill_in 'ユーザー名', with: 'c'
           fill_in 'Email', with: 'c@c.com'
           fill_in 'パスワード', with: 'cccccc'
           fill_in '確認用パスワード', with: 'cccccc'
+          check '管理者権限'
           click_on '登録する'
           expect(page).to have_content 'cさんのマイページ'
           expect(page).to have_content 'c@c.com'
         end  
     
         scenario "ユーザーが更新されること" do
-          user = FactoryBot.create(:user3, id: 2)
+          user = FactoryBot.create(:user3, id: 2, admin: true)
           visit edit_admin_user_path(user.id)
           fill_in 'ユーザー名', with: 'c'
           fill_in 'Email', with: 'd@d.com'
