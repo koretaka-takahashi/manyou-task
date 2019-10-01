@@ -14,3 +14,7 @@
  *= require_tree .
  *= require_self
  */
+
+ .form-search-task-name {
+   width: 110px;
+ }
