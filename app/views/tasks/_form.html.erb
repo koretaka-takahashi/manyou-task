@@ -20,7 +20,13 @@
   <p><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} %></p><br>
   
   <%= f.label :priority, t('view.priority') %>
-  <p><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %></p>
+  <p><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %></p><br>
+
+  <h6><%= t('view.label') %></h6>
+  <% Label.all.each do |label| %>
+    <%= f.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+    <%= f.label label.name %><br>
+  <% end %>
 
   <p class="mt-5"><%= f.submit t('view.create') %></p>
 <% end %>

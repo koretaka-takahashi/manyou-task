@@ -9,28 +9,28 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="bg-light">
+  <body class="bg-light mx-5">
     <div class="container-fluid mt-5">
       <div>
-        <header class="row text-white bg-primary border border-dark rounded mx-4 mb-5 py-4 pl-5">
-          <h1 class="col-md-2 mt-2">MY TASKS</h1>
-          <div class="header-right offset-md-7 col-md-3 clearfix d-flex align-items-center">
+        <header class="row text-white bg-primary border border-dark rounded mb-5 py-4 pl-5">
+          <h1 class="col-lg-2 mt-2 text-nowrap">MY TASKS</h1>
+          <div class="header-right offset-lg-7 col-lg-3 clearfix d-flex align-items-center">
             <% if logged_in? %>
-              <h5 class="float-left"><%= link_to t('view.profile'), user_path(current_user.id), class: 'text-white mr-5' %></h5>
-              <h5 class="float-left"><%= link_to t('view.logout'), session_path(current_user.id), method: :delete, class: 'text-white ml-4' %></h5>
+              <h5 class="float-left text-nowrap"><%= link_to t('view.profile'), user_path(current_user.id), class: 'text-white mr-5' %></h5>
+              <h5 class="float-left text-nowrap"><%= link_to t('view.logout'), session_path(current_user.id), method: :delete, class: 'text-white' %></h5>
             <% else %>
-              <h5 class="float-left"><%= link_to t('view.login'), new_session_path, class: 'text-white mr-5' %></h5>
-              <h5 class="float-left"><%= link_to t('view.sign_up'), new_user_path, class: 'text-white ml-4' %></h5>
+              <h5 class="float-left text-nowrap"><%= link_to t('view.login'), new_session_path, class: 'text-white mr-5' %></h5>
+              <h5 class="float-left text-nowrap"><%= link_to t('view.sign_up'), new_user_path, class: 'text-white' %></h5>
             <% end %>
           </div>
         </header>
       </div>  
       
       <div class="row">
-        <aside class="col-md-2 border border-secondary ml-5 mb-4 pt-5 pl-5 alert alert-danger">
+        <aside class="border border-secondary mb-4 pt-5 pl-5 alert alert-danger">
           <h2 class="mb-4"><%= link_to t('view.index'), root_path, class: "text-dark" %></h2>
-          <button class="btn btn-light btn-outline-dark mb-4"><%= link_to t('view.sort_by_deadline'), root_path(sort_by_deadline: "true"), class: "text-dark" %></button>
-          <button class="btn btn-light btn-outline-dark mb-4"><%= link_to t('view.sort_by_priority'), root_path(sort_by_priority: "true"), class: "text-dark" %></button>
+          <button class="btn btn-light btn-outline-dark mb-4 text-nowrap"><%= link_to t('view.sort_by_deadline'), root_path(sort_by_deadline: "true"), class: "text-dark" %></button><br>
+          <button class="btn btn-light btn-outline-dark mb-4 text-nowrap"><%= link_to t('view.sort_by_priority'), root_path(sort_by_priority: "true"), class: "text-dark" %></button>
 
           <h2 class="mt-4 mb-5"><%= link_to t('view.new'), new_task_path, class: "text-dark" %></h2>
         
@@ -38,21 +38,24 @@
           <%= form_with(model: Task.new, method: :get, url: tasks_path, local: true) do |f| %>
         
             <%= f.label :search_task_name, t('view.task_name') %>
-            <p><%= f.text_field :search_task_name %></p>
+            <p class="form-search-task-name"><%= f.text_field :search_task_name, class: 'form-search-task-name' %></p>
         
             <%= f.label :search_task_status, t('view.status') %>
             <p><%= f.select :search_task_status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]} , include_blank: true, selected: '' %></p>
   
+            <%= f.label :search_task_label, t('view.label') %>
+            <p><%= f.select :search_task_label, Label.all.map {|k| [I18n.t("labels.name.#{k.name}"), k.id]} , include_blank: true, selected: '' %></p>
+
             <p><%= f.hidden_field :search, value: 'true' %></p>
             <p class="mt-4 ml-5 mb-5"><%= f.submit t('view.search') %></p>
           <% end %>
 
           <% if logged_in? && @current_user.admin == true %>
-            <h4 class="mb-5" ><%= link_to "管理メニュー", admin_users_path %></h4>
+            <h4 class="mb-5 text-nowrap" ><%= link_to "管理メニュー", admin_users_path %></h4>
           <% end %>    
         </aside>
 
-        <div class="col-md-9">
+        <div class="col-xs-12 col-md-10">
           <% flash.each do |key, value| %>
             <h3 class="ml-4 my-4"><%= content_tag(:div, value, class: "#{key}") %></h3>
           <% end %>
@@ -60,8 +63,8 @@
         </div>  
       </div>
 
-      <footer>
-       <p class="text-center text-light bg-dark py-4 mx-4 mt-4 rounded">Copyright © 2019 K.TAKAHASHI</p>
+      <footer class="row">
+       <p class="col-sm-12 text-center text-light bg-dark py-4 mt-4 rounded">Copyright © 2019 K.TAKAHASHI</p>
       </footer>
     </div>
   </body>

@@ -5,8 +5,13 @@
     <table class="table table-hover my-5">
       <% @tasks.each do |t| %>
         <tr class="row">
-          <th class="col-md-3"><%= link_to t.name, task_path(t.id), class: 'text-dark' %></th>
-          <td class="col-md-3"><%= t.content.truncate(45) %></td>
+          <th class="col-md-2"><%= link_to t.name, task_path(t.id), class: 'text-dark' %></th>
+          <td class="col-md-2"><%= t.content.truncate(45) %></td>
+          <td class="col-md-2">
+            <% t.labels.each do |label| %>
+              <button class="btn btn-danger mb-1" disabled><%= label.name %></button><br>
+            <% end %>
+          </td>
           <td class="col-md-2 text-center"><%= "#{t('view.deadline')}" %><br><%= t.deadline %></td>
           <td class="col-md-1"><%= t.status_i18n %></td>
           <td class="col-md-1 text-center"><%= "#{t('view.priority')}" %><br><b><%= t.priority_i18n %></b></td>

@@ -10,6 +10,13 @@ ja:
         high: 高
         middle: 中
         low: 低      
+  labels:
+    name:
+      A: A関係
+      B: B関係
+      C: C関係
+      D: D関係
+      E: E関係      
   view:
     task_name: タスク名
     user_name: ユーザー名
@@ -51,6 +58,7 @@ ja:
     admin: 管理者
     admin_authority: 管理者権限
     cant_delete_last_admin: 管理者が一人の為削除できません。
+    label: ラベル
     flash:
       success: タスクを作成しました。
       update: タスクを更新しました。

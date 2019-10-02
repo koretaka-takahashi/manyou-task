@@ -2,10 +2,13 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   background do
+    @label1 = FactoryBot.create(:label)
+    @label2 = FactoryBot.create(:label2)
+    @label3 = FactoryBot.create(:label3)
     @user = FactoryBot.create(:user)
-    @task = FactoryBot.create(:task, user_id: @user.id)
     @user2 = FactoryBot.create(:user2)
-    @task2 = FactoryBot.create(:task2, user_id: @user2.id)
+    @task = FactoryBot.create(:task, user_id: @user.id, label_ids:[@label1.id, @label2.id])
+    @task2 = FactoryBot.create(:task2, user_id: @user2.id, label_ids:[@label2.id, @label3.id])
     visit new_session_path
     fill_in 'Email', with: 'a@a.com'
     fill_in 'session[password]', with: 'aaaaaa'
@@ -19,12 +22,15 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in '終了期限', with: '2019/07/30'
     select '着手中', from: 'task[status]'
     select '高', from: '優先度'
+    check 'task_label_ids_1'
+    check 'task_label_ids_2'
     click_on '登録する'
     click_on '登録する'
     expect(page).to have_content 'test1をやる'
     expect(page).to have_content '2019-07-30'
     expect(page).to have_content '着手中'
     expect(page).to have_content '高'
+    expect(page).to have_content 'A B'
   end
 
   scenario "デフォルト値が正しく入ること" do
@@ -94,6 +100,14 @@ RSpec.feature "タスク管理機能", type: :feature do
     scenario "タスクを状態で検索できる" do
       visit tasks_path
       select '未着手', from: '状態'
+      click_on '検索'
+      expect(page).to have_content 'test'
+      expect(page).not_to have_content 'test2'
+    end
+
+    scenario "タスクをラベルで検索できる" do
+      visit tasks_path
+      select 'A関係', from: 'ラベル'
       click_on '検索'
       expect(page).to have_content 'test'
       expect(page).not_to have_content 'test2'

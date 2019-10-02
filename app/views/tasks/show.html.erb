@@ -2,6 +2,9 @@
   <p><%= notice %></p>
 
   <h3>「 <%= @task.name %> 」</h3>
+    <% @task.labels.each do |label| %>
+      <button class="btn btn-danger mt-2 mb-4" disabled><%= label.name %></button>
+    <% end %>
   <p><%= t('view.show') %>：<%= @task.content %></p>
   <p><%= t('view.deadline') %>：<%= @task.deadline %></p>
   <p><%= t('view.status') %>：<%= @task.status_i18n %></p>

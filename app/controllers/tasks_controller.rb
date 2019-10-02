@@ -3,18 +3,27 @@ class TasksController < ApplicationController
   before_action :login_check
   PER = 10
 
+  # def index
+  #   if params[:task] && params[:task][:search] # 検索の場合
+
+
+  # end  
+
   def index
-    if params[:sort_by_deadline] # 期限順の場合
+    if params[:sort_by_deadline] # 期限順
       @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_deadline
-    elsif params[:sort_by_priority] # 優先順の場合
+    elsif params[:sort_by_priority] # 優先順
       @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_priority
-    elsif params[:task] && params[:task][:search] # 検索の場合で
-      if params[:task][:search_task_status] == '' # 名前のみ検索の場合
-        @tasks = current_user.tasks.page(params[:page]).per(PER).search_by_name(params)
-        return
-      end  # 名前と状態両方の検索の場合
-      @tasks = current_user.tasks.page(params[:page]).per(PER).search_by_name(params).search_by_status(params)
-    else  # デフォルト並び替え（作成順）の場合
+    elsif params[:task] && params[:task][:search] # 検索の場合
+      task_ids = TaskLabel.where(label_id: params[:task][:search_task_label]).pluck(:task_id)
+      if params[:task][:search_task_status] == '' # 状態が空の場合
+        @tasks = current_user.tasks.search_by_name(params).page(params[:page]).per(PER) # 名前で検索、ラベルもあれば名前とラベルで検索
+        @tasks = @tasks.where(id: task_ids).page(params[:page]).per(PER) if params[:task][:search_task_label].present?
+      else  # 名前と状態で検索、ラベルもあれば全てで検索
+        @tasks = current_user.tasks.search_by_name(params).search_by_status(params).page(params[:page]).per(PER)
+        @tasks = @tasks.page(params[:page]).per(PER).where(id: task_ids) if params[:task][:search_task_label].present?
+      end
+    else  # デフォルト並び替え（作成順）
       @tasks = current_user.tasks.page(params[:page]).per(PER).sort_by_created_at
     end
   end
@@ -30,6 +39,11 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     if @task.save
+      if params[:task][:label_ids].present?
+        params[:task][:label_ids].split.each do |label_id|
+          TaskLabel.create(task_id: @task.id, label_id: label_id)
+        end
+      end
       redirect_to task_path(@task.id), notice: t('view.flash.success')
     else
       render :new
@@ -59,6 +73,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :content, :deadline, :status, :priority)
+    params.require(:task).permit(:name, :content, :deadline, :status, :priority, label_ids:[])
   end
 end
