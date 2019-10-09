@@ -39,6 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'enum_help'
 gem 'kaminari'
 gem 'bcrypt', '3.1.11'
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,7 +54,6 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  gem 'faker'
   gem 'launchy'
 end
 
