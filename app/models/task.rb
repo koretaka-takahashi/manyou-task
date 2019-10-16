@@ -4,7 +4,7 @@ class Task < ApplicationRecord
   has_many :labels, through: :task_labels, inverse_of: :tasks
   accepts_nested_attributes_for :task_labels, allow_destroy: true
 
-  validates :name, presence: true, length: { maximum: 30 }
+  validates :name, presence: true, length: { maximum: 100 }
   validates :content, presence: true, length: { maximum: 1000 }
 
   enum status: [:waiting, :doing, :done] 

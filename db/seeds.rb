@@ -22,7 +22,7 @@ end
   20.times do |n|
     name = Faker::Book.title
     contents = Faker::Quote.famous_last_words
-    deadline = Faker::Date.between(Date.today, 2.days.since)
+    deadline = Faker::Date.between(from: Date.today, to: 2.days.since)
     status = Faker::Number.between(0, 2)
     priority = Faker::Number.between(0, 2)
     Task.create!(name: name,
